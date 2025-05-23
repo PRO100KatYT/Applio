@@ -703,39 +703,40 @@ def train_and_evaluate(
                     "epoch": epoch,
                 }
 
-                print(f"New lowest value: {round(loss_gen_all.item(), 3)}, saving .pth and index...")
-                
-                old_model_files = glob.glob(
-                    os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
-                )
-                for file in old_model_files:
-                    model_del.append(file)
-                model_add.append(
-                    os.path.join(
-                        experiment_dir,
-                        f"{model_name}_{epoch}e_{global_step}s_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}_best_epoch.pth",
+                if rank == 0:
+                    print(f"New lowest value: {round(loss_gen_all.item(), 3)}, saving .pth and index...")
+                    
+                    old_model_files = glob.glob(
+                        os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
                     )
-                )
+                    for file in old_model_files:
+                        model_del.append(file)
+                    model_add.append(
+                        os.path.join(
+                            experiment_dir,
+                            f"{model_name}_{epoch}e_{global_step}s_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}_best_epoch.pth",
+                        )
+                    )
 
-                save_to_json(
-                    training_file_path,
-                    loss_disc_history,
-                    smoothed_loss_disc_history,
-                    loss_gen_history,
-                    smoothed_loss_gen_history,
-                )
+                    save_to_json(
+                        training_file_path,
+                        loss_disc_history,
+                        smoothed_loss_disc_history,
+                        loss_gen_history,
+                        smoothed_loss_gen_history,
+                    )
 
-                index_script_path = os.path.join("rvc", "train", "process", "extract_index.py")
-                current_script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-                logs_path = os.path.join(current_script_directory, "logs")
-                command = [
-                    python,
-                    index_script_path,
-                    os.path.join(logs_path, f"{model_name}_{epoch}e_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}"),
-                    "Auto",
-                ]
+                    index_script_path = os.path.join("rvc", "train", "process", "extract_index.py")
+                    current_script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+                    logs_path = os.path.join(current_script_directory, "logs")
+                    command = [
+                        python,
+                        index_script_path,
+                        os.path.join(logs_path, model_name),
+                        "Auto",
+                    ]
 
-                subprocess.run(command)
+                    subprocess.run(command)
             
             # Clean-up old best epochs
             for m in model_del:
