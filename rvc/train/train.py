@@ -709,8 +709,8 @@ def train_and_evaluate(
                     old_model_files = glob.glob(
                         os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
                     )
-                    for file in old_model_files:
-                        model_del.append(file)
+                    #for file in old_model_files:
+                        #model_del.append(file)
                     model_add.append(
                         os.path.join(
                             experiment_dir,
