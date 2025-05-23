@@ -9,11 +9,7 @@ from sklearn.cluster import MiniBatchKMeans
 # Parse command line arguments
 exp_dir = str(sys.argv[1])
 index_algorithm = str(sys.argv[2])
-try:
-    whole_these = str(sys.argv[4])
-except:
-    whole_these = str(sys.argv[3])
-    print(f"whole these is nothing ({list(sys.argv)})")
+whole_these = str(sys.argv[3])
 
 try:
     feature_dir = os.path.join(exp_dir, f"extracted")

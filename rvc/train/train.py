@@ -6,6 +6,7 @@ import datetime
 import glob
 import json
 import subprocess
+import threading
 from collections import deque
 from distutils.util import strtobool
 from random import randint, shuffle
@@ -703,12 +704,12 @@ def train_and_evaluate(
                     "epoch": epoch,
                 }
 
-                if rank == 0:
+                if rank == 0 and round(loss_gen_all.item(), 3) < 6:
                     print(f"New lowest value: {round(loss_gen_all.item(), 3)}, saving .pth and index...")
                     
-                    old_model_files = glob.glob(
-                        os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
-                    )
+                    #old_model_files = glob.glob(
+                    #    os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
+                    #)
                     #for file in old_model_files:
                         #model_del.append(file)
                     model_add.append(
@@ -737,7 +738,8 @@ def train_and_evaluate(
                         str(round(loss_gen_all.item(), 3)).replace(' ', ''),
                     ]
 
-                    subprocess.run(command)
+                    thread = threading.Thread(target=subprocess.run, args=(command,))
+                    thread.start()
             
             # Clean-up old best epochs
             for m in model_del:
