@@ -9,6 +9,7 @@ from sklearn.cluster import MiniBatchKMeans
 # Parse command line arguments
 exp_dir = str(sys.argv[1])
 index_algorithm = str(sys.argv[2])
+whole_these = str(sys.argv[4])
 
 try:
     feature_dir = os.path.join(exp_dir, f"extracted")
@@ -20,7 +21,7 @@ try:
         )
         sys.exit(1)
 
-    index_filename_added = f"{model_name}.index"
+    index_filename_added = f"{model_name}_{whole_these}.index"
     index_filepath_added = os.path.join(exp_dir, index_filename_added)
 
     if os.path.exists(index_filepath_added):
