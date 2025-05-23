@@ -693,6 +693,9 @@ def train_and_evaluate(
             loss_gen, _ = generator_loss(y_d_hat_g)
             loss_gen_all = loss_gen + loss_fm + loss_mel + loss_kl
 
+            model_add = []
+            model_del = []
+
             if loss_gen_all.item() < lowest_value["value"]:
                 lowest_value = {
                     "step": global_step,
@@ -733,6 +736,30 @@ def train_and_evaluate(
                 ]
 
                 subprocess.run(command)
+            
+            # Clean-up old best epochs
+            for m in model_del:
+                os.remove(m)
+
+            if model_add:
+                ckpt = (
+                    net_g.module.state_dict()
+                    if hasattr(net_g, "module")
+                    else net_g.state_dict()
+                )
+                for m in model_add:
+                    if not os.path.exists(m):
+                        extract_model(
+                            ckpt=ckpt,
+                            sr=sample_rate,
+                            name=model_name,
+                            model_path=m,
+                            epoch=epoch,
+                            step=global_step,
+                            hps=hps,
+                            overtrain_info=overtrain_info,
+                            vocoder=vocoder,
+                        )
 
             optim_g.zero_grad()
             loss_gen_all.backward()
