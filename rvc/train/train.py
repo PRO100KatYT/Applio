@@ -772,7 +772,7 @@ def train_and_evaluate(
                 "epoch": epoch,
             }
 
-            if round(current_epoch_min_loss, 3) < 6:
+            if round(current_epoch_min_loss, 3) < 66:
                 print(f"New lowest value: {round(current_epoch_min_loss, 3)}, saving .pth and index...")
                 
                 model_add.append(
