@@ -183,7 +183,7 @@
   "Record Screen": "Rekam Layar",
   "The f0 curve represents the variations in the base frequency of a voice over time, showing how pitch rises and falls.": "Kurva f0 mewakili variasi frekuensi dasar suara dari waktu ke waktu, menunjukkan bagaimana nada naik dan turun.",
   "Stop Recording": "Berhenti Merekam",
-  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. Buka [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) dan klik tombol 'New Issue'.",
+  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. Buka [GitHub Issues](https://github.com/IAHispano/Applio/issues) dan klik tombol 'New Issue'.",
   "Introduce the model .pth path": "Perkenalkan jalur model .pth",
   "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).": "2. Setelah Anda selesai merekam masalah, klik tombol 'Hentikan Perekaman' (tombol yang sama, tetapi labelnya berubah tergantung pada apakah Anda aktif merekam atau tidak).",
   "Model Link": "Tautan Model",

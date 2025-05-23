@@ -184,7 +184,7 @@
   "## Download Model": "## Завантажити модель",
   "The information to be placed in the model (You can leave it blank or put anything).": "Інформація повинна бути розміщена в моделі (Ви можете залишити її порожньою або помістити що завгодно).",
   "Introduce the model .pth path": "Ознайомтеся з моделлю .pth шляху",
-  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. Перейдіть до [Проблеми GitHub](https://github.com/PRO100KatYT/Applio/issues) і натисніть кнопку «Новий випуск».",
+  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. Перейдіть до [Проблеми GitHub](https://github.com/IAHispano/Applio/issues) і натисніть кнопку «Новий випуск».",
   "View model information": "Перегляд інформації про модель",
   "Download Model": "Завантажити модель",
   "See Model Information": "Переглянути інформацію про модель",

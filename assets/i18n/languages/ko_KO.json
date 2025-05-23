@@ -182,7 +182,7 @@
     "# How to Report an Issue on GitHub": "# GitHub에서 문제를 보고하는 방법",
     "1. Click on the 'Record Screen' button below to start recording the issue you are experiencing.": "1. 아래의 '화면 녹화' 버튼을 클릭하여 겪고 있는 문제를 녹화하기 시작하세요.",
     "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).": "2. 문제 녹화를 마친 후 '녹화 중지' 버튼을 클릭하세요 (동일한 버튼이며, 활성화 여부에 따라 레이블이 변경됩니다).",
-    "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues)로 이동하여 '새 이슈' 버튼을 클릭하세요.",
+    "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/IAHispano/Applio/issues)로 이동하여 '새 이슈' 버튼을 클릭하세요.",
     "4. Complete the provided issue template, ensuring to include details as needed, and utilize the assets section to upload the recorded file from the previous step.": "4. 제공된 이슈 템플릿을 작성하면서 필요한 세부 정보를 포함하고, 자산 섹션을 사용하여 이전 단계에서 녹화한 파일을 업로드하세요.",
     "Record Screen": "화면 녹화",
     "Record": "녹화",

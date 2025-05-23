@@ -306,7 +306,7 @@
    "The f0 curve represents the variations in the base frequency of a voice over time, showing how pitch rises and falls.":"f0 eğrisi, bir sesin temel frekansındaki zaman içindeki değişimleri temsil eder ve perdenin nasıl yükselip alçaldığını gösterir.",
    "1. Click on the 'Record Screen' button below to start recording the issue you are experiencing.":"1. Yaşadığınız sorunu kaydetmeye başlamak için aşağıdaki 'Ekranı Kaydet' düğmesine tıklayın.",
    "# How to Report an Issue on GitHub":"# GitHub'da Sorun Nasıl Bildirilir",
-   "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.":"3. [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) adresine gidin ve 'Yeni Sorun' düğmesine tıklayın.",
+   "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.":"3. [GitHub Issues](https://github.com/IAHispano/Applio/issues) adresine gidin ve 'Yeni Sorun' düğmesine tıklayın.",
    "Record Screen":"Ekranı Kaydet",
    "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).":"2. Sorunu kaydetmeyi bitirdiğinizde, 'Kaydı Durdur' düğmesine tıklayın (aynı düğme, ancak etiket aktif olarak kayıt yapıp yapmadığınıza bağlı olarak değişir).",
    "See Model Information":"Model Bilgilerini Gör",

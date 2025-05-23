@@ -138,7 +138,7 @@
   "# How to Report an Issue on GitHub": "# Cách báo cáo sự cố trên GitHub",
   "1. Click on the 'Record Screen' button below to start recording the issue you are experiencing.": "1. Nhấp vào nút 'Ghi lại màn hình' bên dưới để bắt đầu ghi lại sự cố bạn đang gặp phải.",
   "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).": "2. Khi bạn đã ghi xong sự cố, hãy nhấp vào nút 'Dừng ghi' (cùng một nút, nhưng nhãn thay đổi tùy thuộc vào việc bạn có chủ động ghi hay không).",
-  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. Đi tới [Vấn đề GitHub] (https://github.com/PRO100KatYT/Applio/issues) và nhấp vào nút 'Vấn đề mới'.",
+  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. Đi tới [Vấn đề GitHub] (https://github.com/IAHispano/Applio/issues) và nhấp vào nút 'Vấn đề mới'.",
   "4. Complete the provided issue template, ensuring to include details as needed, and utilize the assets section to upload the recorded file from the previous step.": "4. Hoàn thành mẫu vấn đề được cung cấp, đảm bảo bao gồm các chi tiết khi cần thiết và sử dụng phần tài sản để tải lên tệp đã ghi từ bước trước.",
   "Record Screen": "Ghi lại màn hình",
   "Record": "Ghi",

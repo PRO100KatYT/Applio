@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://applio.org" target="_blank"><img src="https://github.com/PRO100KatYT/Applio/assets/133521603/78e975d8-b07f-47ba-ab23-5a31592f322a" alt="Applio"></a>
+  <a href="https://applio.org" target="_blank"><img src="https://github.com/IAHispano/Applio/assets/133521603/78e975d8-b07f-47ba-ab23-5a31592f322a" alt="Applio"></a>
 </h1>
 
 <p align="center">
@@ -21,9 +21,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/PRO100KatYT/Applio-Plugins" target="_blank">🛒 Plugins</a>
+  <a href="https://github.com/IAHispano/Applio-Plugins" target="_blank">🛒 Plugins</a>
   •
-  <a href="https://huggingface.co/PRO100KatYT/Applio/tree/main/Compiled" target="_blank">📦 Compiled</a>
+  <a href="https://huggingface.co/IAHispano/Applio/tree/main/Compiled" target="_blank">📦 Compiled</a>
   •
   <a href="https://applio.org/playground" target="_blank">🎮 Playground</a>
   •
@@ -84,6 +84,6 @@ Applio is made possible thanks to these projects and their references:
 
 ### Contributors
 
-<a href="https://github.com/PRO100KatYT/Applio/graphs/contributors" target="_blank">
-  <img src="https://contrib.rocks/image?repo=PRO100KatYT/Applio" />
+<a href="https://github.com/IAHispano/Applio/graphs/contributors" target="_blank">
+  <img src="https://contrib.rocks/image?repo=IAHispano/Applio" />
 </a>

@@ -191,7 +191,7 @@
   "The information to be placed in the model (You can leave it blank or put anything).": "Информация, которая должна быть размещена в модели (Вы можете оставить ее пустой или поставить что угодно).",
   "## Drop files": "## Перетащить файлы",
   "Download Model": "Скачать модель",
-  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. Перейдите в раздел [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) и нажмите на кнопку «Новая проблема».",
+  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. Перейдите в раздел [GitHub Issues](https://github.com/IAHispano/Applio/issues) и нажмите на кнопку «Новая проблема».",
   "## Search Model": "## Поиск модели",
   "Introduce the model name to search.": "Введите название модели для поиска.",
   "Drag your .pth file and .index file into this space. Drag one and then the other.": "Перетащите файлы .pth и .index в это пространство. Перетащите один, а затем другой.",
