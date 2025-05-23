@@ -70,7 +70,7 @@
   "The audio file has been successfully added to the dataset. Please click the preprocess button.": "The audio file has been successfully added to the dataset. Please click the preprocess button.",
   "Model Link": "Model Link",
   "Model Architecture": "Model Architecture",
-  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.",
+  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.",
   "Refresh Datasets": "Refresh Datasets",
   "Denotes the duration it takes for the system to transition to a significant pitch change. Smaller hop lengths require more time for inference but tend to yield higher pitch accuracy.": "Denotes the duration it takes for the system to transition to a significant pitch change. Smaller hop lengths require more time for inference but tend to yield higher pitch accuracy.",
   "Introduce the model .pth path": "Introduce the model .pth path",

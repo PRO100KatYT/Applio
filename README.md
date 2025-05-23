@@ -1,13 +1,13 @@
 <h1 align="center">
-  <a href="https://applio.org" target="_blank"><img src="https://github.com/IAHispano/Applio/assets/133521603/78e975d8-b07f-47ba-ab23-5a31592f322a" alt="Applio"></a>
+  <a href="https://applio.org" target="_blank"><img src="https://github.com/PRO100KatYT/Applio/assets/133521603/78e975d8-b07f-47ba-ab23-5a31592f322a" alt="Applio"></a>
 </h1>
 
 <p align="center">
-    <img alt="Contributors" src="https://img.shields.io/github/contributors/iahispano/applio?style=for-the-badge&color=FFFFFF" />
-    <img alt="Release" src="https://img.shields.io/github/release/iahispano/applio?style=for-the-badge&color=FFFFFF" />
-    <img alt="Stars" src="https://img.shields.io/github/stars/iahispano/applio?style=for-the-badge&color=FFFFFF" />
-    <img alt="Fork" src="https://img.shields.io/github/forks/iahispano/applio?style=for-the-badge&color=FFFFFF" />
-    <img alt="Issues" src="https://img.shields.io/github/issues/iahispano/applio?style=for-the-badge&color=FFFFFF" />
+    <img alt="Contributors" src="https://img.shields.io/github/contributors/pro100katyt/applio?style=for-the-badge&color=FFFFFF" />
+    <img alt="Release" src="https://img.shields.io/github/release/pro100katyt/applio?style=for-the-badge&color=FFFFFF" />
+    <img alt="Stars" src="https://img.shields.io/github/stars/pro100katyt/applio?style=for-the-badge&color=FFFFFF" />
+    <img alt="Fork" src="https://img.shields.io/github/forks/pro100katyt/applio?style=for-the-badge&color=FFFFFF" />
+    <img alt="Issues" src="https://img.shields.io/github/issues/pro100katyt/applio?style=for-the-badge&color=FFFFFF" />
 </p>
 
 <p align="center">A simple, high-quality voice conversion tool, focused on ease of use and performance.</p>
@@ -21,15 +21,15 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/IAHispano/Applio-Plugins" target="_blank">🛒 Plugins</a>
+  <a href="https://github.com/PRO100KatYT/Applio-Plugins" target="_blank">🛒 Plugins</a>
   •
-  <a href="https://huggingface.co/IAHispano/Applio/tree/main/Compiled" target="_blank">📦 Compiled</a>
+  <a href="https://huggingface.co/PRO100KatYT/Applio/tree/main/Compiled" target="_blank">📦 Compiled</a>
   •
   <a href="https://applio.org/playground" target="_blank">🎮 Playground</a>
   •
   <a href="https://colab.research.google.com/github/pro100katyt/applio/blob/master/assets/Applio.ipynb" target="_blank">🔎 Google Colab (UI)</a>
   •
-  <a href="https://colab.research.google.com/github/iahispano/applio/blob/master/assets/Applio_NoUI.ipynb" target="_blank">🔎 Google Colab (No UI)</a>
+  <a href="https://colab.research.google.com/github/pro100katyt/applio/blob/master/assets/Applio_NoUI.ipynb" target="_blank">🔎 Google Colab (No UI)</a>
 </p>
 
 ## Introduction
@@ -84,6 +84,6 @@ Applio is made possible thanks to these projects and their references:
 
 ### Contributors
 
-<a href="https://github.com/IAHispano/Applio/graphs/contributors" target="_blank">
-  <img src="https://contrib.rocks/image?repo=IAHispano/Applio" />
+<a href="https://github.com/PRO100KatYT/Applio/graphs/contributors" target="_blank">
+  <img src="https://contrib.rocks/image?repo=PRO100KatYT/Applio" />
 </a>

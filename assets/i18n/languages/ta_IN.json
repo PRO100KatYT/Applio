@@ -151,7 +151,7 @@
     "# How to Report an Issue on GitHub": "# GitHub-ல் ஒரு பிரச்சினையை புகாரளிக்குவது எப்படி",
     "1. Click on the 'Record Screen' button below to start recording the issue you are experiencing.": "1. நீங்கள் அந்தப் பிரச்சினையை பரிசோதிக்கும் கீழே 'திரையை பதிகம் செய்யும்' பொத்தானை கிளிக் செய்யவும்.",
     "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).": "2. நீங்கள் அந்தப் பிரச்சினையை பரிசோதித்துக் கொண்டிருக்கின்றீர்கள், அந்தச் செய்யப்படும் பொத்தானை கிளிக் செய்யவும் (இது நீங்கள் சொல்லப்படும் பொத்தான், ஆனால் நீங்கள் எந்தவேணையும் செய்யக்கூடிய நிலையின் போது பொத்தானின் பெயர் மாறுகின்றது).",
-    "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/IAHispano/Applio/issues) க்கு செல்லவும் மற்றும் 'புதிய பிரச்சினை' பொத்தானை கிளிக் செய்யவும்.",
+    "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) க்கு செல்லவும் மற்றும் 'புதிய பிரச்சினை' பொத்தானை கிளிக் செய்யவும்.",
     "4. Complete the provided issue template, ensuring to include details as needed, and utilize the assets section to upload the recorded file from the previous step.": "4. வழுதுணர்ந்து, தேவையான விவரங்களைக் கொண்டு விரிவாக பிரச்சினை பதிவேடு செய்து, முந்தைய படித்த கோப்பை பதிவேடுக்கு பயன்படுத்தலாம்.",
     "Record Screen": "திரையை பதிகம் செய்க",
     "Record": "பதிகம் செய்க",

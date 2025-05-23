@@ -138,7 +138,7 @@
   "# How to Report an Issue on GitHub": "# गिटहबवर एखाद्या समस्येची नोंद कशी करावी",
   "1. Click on the 'Record Screen' button below to start recording the issue you are experiencing.": "1. आपण अनुभवत असलेल्या समस्येचे रेकॉर्डिंग सुरू करण्यासाठी खालील 'रेकॉर्ड स्क्रीन' बटणावर क्लिक करा.",
   "2. Once you have finished recording the issue, click on the 'Stop Recording' button (the same button, but the label changes depending on whether you are actively recording or not).": "२. अंक रेकॉर्ड िंग पूर्ण झाल्यावर 'स्टॉप रेकॉर्डिंग' बटणावर क्लिक करा (तेच बटण, पण तुम्ही सक्रियपणे रेकॉर्डिंग करत आहात की नाही यावर अवलंबून लेबल बदलते).",
-  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. [गिटहब इश्यूज] (https://github.com/IAHispano/Applio/issues) वर जा आणि 'न्यू इश्यू' बटणावर क्लिक करा.",
+  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. [गिटहब इश्यूज] (https://github.com/PRO100KatYT/Applio/issues) वर जा आणि 'न्यू इश्यू' बटणावर क्लिक करा.",
   "4. Complete the provided issue template, ensuring to include details as needed, and utilize the assets section to upload the recorded file from the previous step.": "4. प्रदान केलेले इश्यू टेम्पलेट पूर्ण करा, आवश्यकतेनुसार तपशील समाविष्ट करण्याची खात्री करा आणि मागील चरणातून रेकॉर्ड केलेली फाइल अपलोड करण्यासाठी मालमत्ता विभागाचा वापर करा.",
   "Record Screen": "रेकॉर्ड स्क्रीन",
   "Record": "नोंदणे",

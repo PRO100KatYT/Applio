@@ -178,7 +178,7 @@
   "Record Screen": "画面録画",
   "# How to Report an Issue on GitHub": "# GitHubで問題を報告する方法",
   "Adjusting the position more towards one side or the other will make the model more similar to the first or second.": "位置をどちらか一方に調整すると、モデルは1番目または2番目により近くなります。",
-  "3. Go to [GitHub Issues](https://github.com/IAHispano/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/IAHispano/Applio/issues)に移動し、[New Issue]ボタンをクリックします。",
+  "3. Go to [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues) and click on the 'New Issue' button.": "3. [GitHub Issues](https://github.com/PRO100KatYT/Applio/issues)に移動し、[New Issue]ボタンをクリックします。",
   "Stop Recording": "録音を停止する",
   "Introduce the model .pth path": "モデルの.pthパスを導入",
   "See Model Information": "モデル情報を見る",

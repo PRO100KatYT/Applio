@@ -20,7 +20,7 @@ def load_local_version():
 
 
 def obtain_tag_name():
-    url = "https://api.github.com/repos/IAHispano/Applio/releases/latest"
+    url = "https://api.github.com/repos/PRO100KatYT/Applio/releases/latest"
     session = requests.Session()
 
     try:
