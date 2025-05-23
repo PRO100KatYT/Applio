@@ -5,6 +5,7 @@ os.environ["USE_LIBUV"] = "0" if sys.platform == "win32" else "1"
 import datetime
 import glob
 import json
+import subprocess
 from collections import deque
 from distutils.util import strtobool
 from random import randint, shuffle
@@ -23,6 +24,8 @@ from tqdm import tqdm
 
 now_dir = os.getcwd()
 sys.path.append(os.path.join(now_dir))
+
+python = sys.executable
 
 from losses import discriminator_loss, feature_loss, generator_loss, kl_loss
 from mel_processing import (
@@ -690,12 +693,47 @@ def train_and_evaluate(
             loss_gen, _ = generator_loss(y_d_hat_g)
             loss_gen_all = loss_gen + loss_fm + loss_mel + loss_kl
 
-            if loss_gen_all < lowest_value["value"]:
+            if loss_gen_all.item() < lowest_value["value"]:
                 lowest_value = {
                     "step": global_step,
                     "value": loss_gen_all,
                     "epoch": epoch,
                 }
+
+                print(f"New lowest value: {round(loss_gen_all.item(), 3)}, saving .pth and index...")
+                
+                old_model_files = glob.glob(
+                    os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
+                )
+                for file in old_model_files:
+                    model_del.append(file)
+                model_add.append(
+                    os.path.join(
+                        experiment_dir,
+                        f"{model_name}_{epoch}e_{global_step}s_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}_best_epoch.pth",
+                    )
+                )
+
+                save_to_json(
+                    training_file_path,
+                    loss_disc_history,
+                    smoothed_loss_disc_history,
+                    loss_gen_history,
+                    smoothed_loss_gen_history,
+                )
+
+                index_script_path = os.path.join("rvc", "train", "process", "extract_index.py")
+                current_script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+                logs_path = os.path.join(current_script_directory, "logs")
+                command = [
+                    python,
+                    index_script_path,
+                    os.path.join(logs_path, f"{model_name}_{epoch}e_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}"),
+                    "Auto",
+                ]
+
+                subprocess.run(command)
+
             optim_g.zero_grad()
             loss_gen_all.backward()
             grad_norm_g = commons.grad_norm(net_g.parameters())
@@ -883,20 +921,7 @@ def train_and_evaluate(
                 )
                 done = True
             else:
-                print(
-                    f"New best epoch {epoch} with smoothed loss_g {smoothed_value_gen:.3f} and loss_d {smoothed_value_disc:.3f}"
-                )
-                old_model_files = glob.glob(
-                    os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
-                )
-                for file in old_model_files:
-                    model_del.append(file)
-                model_add.append(
-                    os.path.join(
-                        experiment_dir,
-                        f"{model_name}_{epoch}e_{global_step}s_best_epoch.pth",
-                    )
-                )
+                pass
 
         # Print training progress
         lowest_value_rounded = float(lowest_value["value"])
