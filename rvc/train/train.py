@@ -734,7 +734,7 @@ def train_and_evaluate(
                         index_script_path,
                         os.path.join(logs_path, model_name),
                         "Auto",
-                        str(round(loss_gen_all.item(), 3)).replace(' ', '')
+                        str(round(loss_gen_all.item(), 3)).replace(' ', ''),
                     ]
 
                     subprocess.run(command)

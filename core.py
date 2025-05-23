@@ -563,6 +563,7 @@ def run_index_script(model_name: str, index_algorithm: str):
         index_script_path,
         os.path.join(logs_path, model_name),
         index_algorithm,
+        "",
     ]
 
     subprocess.run(command)
