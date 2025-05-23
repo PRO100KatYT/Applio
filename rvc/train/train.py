@@ -757,7 +757,7 @@ def train_and_evaluate(
                             epoch=epoch,
                             step=global_step,
                             hps=hps,
-                            overtrain_info=overtrain_info,
+                            overtrain_info="pop",
                             vocoder=vocoder,
                         )
 
