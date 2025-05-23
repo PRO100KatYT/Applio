@@ -579,7 +579,6 @@ def run(
         scheduler_g.step()
         scheduler_d.step()
 
-
 def train_and_evaluate(
     rank,
     epoch,
@@ -608,7 +607,12 @@ def train_and_evaluate(
         loaders (list): List of dataloaders [train_loader, eval_loader].
         writers (list): List of TensorBoard writers [writer_eval].
         cache (list): List to cache data in GPU memory.
-        use_cpu (bool): Whether to use CPU for training.
+        custom_save_every_weights (bool): Whether to save weights customly.
+        custom_total_epoch (int): Custom total epoch count.
+        device (torch.device): Training device.
+        device_id (int): Device ID.
+        reference (tuple): Reference data for inference.
+        fn_mel_loss (function): Mel loss function.
     """
     global global_step, lowest_value, loss_disc, consecutive_increases_gen, consecutive_increases_disc, smoothed_value_gen, smoothed_value_disc
 
@@ -627,6 +631,10 @@ def train_and_evaluate(
 
     net_g.train()
     net_d.train()
+
+    # Track minimum loss within current epoch
+    current_epoch_min_loss = float("inf")
+    current_epoch_min_step = global_step
 
     # Data caching
     if device.type == "cuda" and cache_data_in_gpu:
@@ -694,76 +702,11 @@ def train_and_evaluate(
             loss_gen, _ = generator_loss(y_d_hat_g)
             loss_gen_all = loss_gen + loss_fm + loss_mel + loss_kl
 
-            model_add = []
-            model_del = []
-
-            if loss_gen_all.item() < lowest_value["value"]:
-                lowest_value = {
-                    "step": global_step,
-                    "value": loss_gen_all,
-                    "epoch": epoch,
-                }
-
-                if rank == 0 and round(loss_gen_all.item(), 3) < 6:
-                    print(f"New lowest value: {round(loss_gen_all.item(), 3)}, saving .pth and index...")
-                    
-                    #old_model_files = glob.glob(
-                    #    os.path.join(experiment_dir, f"{model_name}_*e_*s_best_epoch.pth")
-                    #)
-                    #for file in old_model_files:
-                        #model_del.append(file)
-                    model_add.append(
-                        os.path.join(
-                            experiment_dir,
-                            f"{model_name}_{epoch}e_{global_step}s_loss{str(round(loss_gen_all.item(), 3)).replace(' ', '')}_best_epoch.pth",
-                        )
-                    )
-
-                    save_to_json(
-                        training_file_path,
-                        loss_disc_history,
-                        smoothed_loss_disc_history,
-                        loss_gen_history,
-                        smoothed_loss_gen_history,
-                    )
-
-                    index_script_path = os.path.join("rvc", "train", "process", "extract_index.py")
-                    current_script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-                    logs_path = os.path.join(current_script_directory, "logs")
-                    command = [
-                        python,
-                        index_script_path,
-                        os.path.join(logs_path, model_name),
-                        "Auto",
-                        str(round(loss_gen_all.item(), 3)).replace(' ', ''),
-                    ]
-
-                    thread = threading.Thread(target=subprocess.run, args=(command,))
-                    thread.start()
-            
-            # Clean-up old best epochs
-            for m in model_del:
-                os.remove(m)
-
-            if model_add:
-                ckpt = (
-                    net_g.module.state_dict()
-                    if hasattr(net_g, "module")
-                    else net_g.state_dict()
-                )
-                for m in model_add:
-                    if not os.path.exists(m):
-                        extract_model(
-                            ckpt=ckpt,
-                            sr=sample_rate,
-                            name=model_name,
-                            model_path=m,
-                            epoch=epoch,
-                            step=global_step,
-                            hps=hps,
-                            overtrain_info="pop",
-                            vocoder=vocoder,
-                        )
+            # Update epoch minimum tracking
+            current_batch_loss = loss_gen_all.item()
+            if current_batch_loss < current_epoch_min_loss:
+                current_epoch_min_loss = current_batch_loss
+                current_epoch_min_step = global_step
 
             optim_g.zero_grad()
             loss_gen_all.backward()
@@ -811,85 +754,9 @@ def train_and_evaluate(
                 )
 
             pbar.update(1)
-        # end of batch train
-    # end of tqdm
+
     with torch.no_grad():
         torch.cuda.empty_cache()
-
-    # Logging and checkpointing
-    if rank == 0:
-        # used for tensorboard chart - all/mel
-        mel = spec_to_mel_torch(
-            spec,
-            config.data.filter_length,
-            config.data.n_mel_channels,
-            config.data.sample_rate,
-            config.data.mel_fmin,
-            config.data.mel_fmax,
-        )
-        # used for tensorboard chart - slice/mel_org
-        if randomized:
-            y_mel = commons.slice_segments(
-                mel,
-                ids_slice,
-                config.train.segment_size // config.data.hop_length,
-                dim=3,
-            )
-        else:
-            y_mel = mel
-        # used for tensorboard chart - slice/mel_gen
-        y_hat_mel = mel_spectrogram_torch(
-            y_hat.float().squeeze(1),
-            config.data.filter_length,
-            config.data.n_mel_channels,
-            config.data.sample_rate,
-            config.data.hop_length,
-            config.data.win_length,
-            config.data.mel_fmin,
-            config.data.mel_fmax,
-        )
-
-        lr = optim_g.param_groups[0]["lr"]
-
-        scalar_dict = {
-            "loss/g/total": loss_gen_all,
-            "loss/d/total": loss_disc,
-            "learning_rate": lr,
-            "grad/norm_d": grad_norm_d,
-            "grad/norm_g": grad_norm_g,
-            "loss/g/fm": loss_fm,
-            "loss/g/mel": loss_mel,
-            "loss/g/kl": loss_kl,
-        }
-
-        image_dict = {
-            "slice/mel_org": plot_spectrogram_to_numpy(y_mel[0].data.cpu().numpy()),
-            "slice/mel_gen": plot_spectrogram_to_numpy(y_hat_mel[0].data.cpu().numpy()),
-            "all/mel": plot_spectrogram_to_numpy(mel[0].data.cpu().numpy()),
-        }
-
-        if epoch % save_every_epoch == 0:
-            with torch.no_grad():
-                if hasattr(net_g, "module"):
-                    o, *_ = net_g.module.infer(*reference)
-                else:
-                    o, *_ = net_g.infer(*reference)
-            audio_dict = {f"gen/audio_{global_step:07d}": o[0, :, :]}
-            summarize(
-                writer=writer,
-                global_step=global_step,
-                images=image_dict,
-                scalars=scalar_dict,
-                audios=audio_dict,
-                audio_sample_rate=config.data.sample_rate,
-            )
-        else:
-            summarize(
-                writer=writer,
-                global_step=global_step,
-                images=image_dict,
-                scalars=scalar_dict,
-            )
 
     # Save checkpoint
     model_add = []
@@ -897,6 +764,71 @@ def train_and_evaluate(
     done = False
 
     if rank == 0:
+        # Check for new best model after epoch completion
+        if current_epoch_min_loss < lowest_value["value"]:
+            lowest_value = {
+                "step": current_epoch_min_step,
+                "value": current_epoch_min_loss,
+                "epoch": epoch,
+            }
+
+            if round(current_epoch_min_loss, 3) < 6:
+                print(f"New lowest value: {round(current_epoch_min_loss, 3)}, saving .pth and index...")
+                
+                model_add.append(
+                    os.path.join(
+                        experiment_dir,
+                        f"{model_name}_{epoch}e_{current_epoch_min_step}s_loss{round(current_epoch_min_loss, 3)}_best_epoch.pth",
+                    )
+                )
+
+                save_to_json(
+                    training_file_path,
+                    loss_disc_history,
+                    smoothed_loss_disc_history,
+                    loss_gen_history,
+                    smoothed_loss_gen_history,
+                )
+
+                index_script_path = os.path.join("rvc", "train", "process", "extract_index.py")
+                current_script_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+                logs_path = os.path.join(current_script_directory, "logs")
+                command = [
+                    python,
+                    index_script_path,
+                    os.path.join(logs_path, model_name),
+                    "Auto",
+                    str(round(current_epoch_min_loss, 3)).replace(' ', ''),
+                ]
+
+                thread = threading.Thread(target=subprocess.run, args=(command,))
+                thread.start()
+
+        # Clean-up old best epochs
+        for m in model_del:
+            os.remove(m)
+
+        if model_add:
+            ckpt = (
+                net_g.module.state_dict()
+                if hasattr(net_g, "module")
+                else net_g.state_dict()
+            )
+            for m in model_add:
+                if not os.path.exists(m):
+                    extract_model(
+                        ckpt=ckpt,
+                        sr=sample_rate,
+                        name=model_name,
+                        model_path=m,
+                        epoch=epoch,
+                        step=current_epoch_min_step,
+                        hps=hps,
+                        overtrain_info="pop",
+                        vocoder=vocoder,
+                    )
+
+        # Logging and checkpointing continues...
         overtrain_info = ""
         # Check overtraining
         if overtraining_detector and rank == 0 and epoch > 1:
@@ -1018,30 +950,6 @@ def train_and_evaluate(
             )
             done = True
 
-        # Clean-up old best epochs
-        for m in model_del:
-            os.remove(m)
-
-        if model_add:
-            ckpt = (
-                net_g.module.state_dict()
-                if hasattr(net_g, "module")
-                else net_g.state_dict()
-            )
-            for m in model_add:
-                if not os.path.exists(m):
-                    extract_model(
-                        ckpt=ckpt,
-                        sr=sample_rate,
-                        name=model_name,
-                        model_path=m,
-                        epoch=epoch,
-                        step=global_step,
-                        hps=hps,
-                        overtrain_info=overtrain_info,
-                        vocoder=vocoder,
-                    )
-
         if done:
             # Clean-up process IDs from config.json
             pid_file_path = os.path.join(experiment_dir, "config.json")
@@ -1055,6 +963,77 @@ def train_and_evaluate(
         with torch.no_grad():
             torch.cuda.empty_cache()
 
+    # Logging and audio generation
+    with torch.no_grad():
+        mel = spec_to_mel_torch(
+            spec,
+            config.data.filter_length,
+            config.data.n_mel_channels,
+            config.data.sample_rate,
+            config.data.mel_fmin,
+            config.data.mel_fmax,
+        )
+        if randomized:
+            y_mel = commons.slice_segments(
+                mel,
+                ids_slice,
+                config.train.segment_size // config.data.hop_length,
+                dim=3,
+            )
+        else:
+            y_mel = mel
+        y_hat_mel = mel_spectrogram_torch(
+            y_hat.float().squeeze(1),
+            config.data.filter_length,
+            config.data.n_mel_channels,
+            config.data.sample_rate,
+            config.data.hop_length,
+            config.data.win_length,
+            config.data.mel_fmin,
+            config.data.mel_fmax,
+        )
+
+        lr = optim_g.param_groups[0]["lr"]
+
+        scalar_dict = {
+            "loss/g/total": loss_gen_all,
+            "loss/d/total": loss_disc,
+            "learning_rate": lr,
+            "grad/norm_d": grad_norm_d,
+            "grad/norm_g": grad_norm_g,
+            "loss/g/fm": loss_fm,
+            "loss/g/mel": loss_mel,
+            "loss/g/kl": loss_kl,
+        }
+
+        image_dict = {
+            "slice/mel_org": plot_spectrogram_to_numpy(y_mel[0].data.cpu().numpy()),
+            "slice/mel_gen": plot_spectrogram_to_numpy(y_hat_mel[0].data.cpu().numpy()),
+            "all/mel": plot_spectrogram_to_numpy(mel[0].data.cpu().numpy()),
+        }
+
+        if epoch % save_every_epoch == 0:
+            with torch.no_grad():
+                if hasattr(net_g, "module"):
+                    o, *_ = net_g.module.infer(*reference)
+                else:
+                    o, *_ = net_g.infer(*reference)
+            audio_dict = {f"gen/audio_{global_step:07d}": o[0, :, :]}
+            summarize(
+                writer=writer,
+                global_step=global_step,
+                images=image_dict,
+                scalars=scalar_dict,
+                audios=audio_dict,
+                audio_sample_rate=config.data.sample_rate,
+            )
+        else:
+            summarize(
+                writer=writer,
+                global_step=global_step,
+                images=image_dict,
+                scalars=scalar_dict,
+            )
 
 def check_overtraining(smoothed_loss_history, threshold, epsilon=0.004):
     """
